@@ -1,12 +1,13 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-CSS
+{{entry}} Page
 {% endblock %}
 
 {% block body %}
-<h1>CSS Page</h1>
+<h1>{{entry}} Page</h1>
+<a href="/wiki/edit/{{entry}}" class="btn btn-primary btn-outline">Edit</a>
 
-{{content}}
+{{content | safe}}
 
 {% endblock %}

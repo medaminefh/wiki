@@ -5,6 +5,15 @@ Edit
 {% endblock %}
 
 {% block body %}
-<h1>Edit This Page</h1>
+<h1>Edit {{entry}} Page</h1>
+<form action="/wiki/{{entry}}" method="POST">
+    {% csrf_token %}
+    <textarea>
+        {{content}}
+        </textarea>
+    <button>Submit</button>
+</form>
+<a class="btn btn-secondary" href="{% url 'wiki:index' %}">Cancel</a>
+
 
 {% endblock %}
