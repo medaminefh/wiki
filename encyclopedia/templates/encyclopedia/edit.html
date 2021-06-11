@@ -6,14 +6,14 @@ Edit
 
 {% block body %}
 <h1>Edit {{entry}} Page</h1>
-<form action="/wiki/{{entry}}" method="POST">
+<form action="/wiki/edit/{{entry}}" method="POST">
     {% csrf_token %}
-    <textarea>
-        {{content}}
-        </textarea>
+    <textarea name="content">
+{{content | safe }}
+    </textarea>
     <button>Submit</button>
 </form>
-<a class="btn btn-secondary" href="{% url 'wiki:index' %}">Cancel</a>
+<a class="btn btn-secondary" href="/wiki/{{entry}}">Cancel</a>
 
 
 {% endblock %}

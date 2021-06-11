@@ -26,7 +26,13 @@ def content(request, entry):
 
 
 def search(request):
-    return render(request, "encyclopedia/search.html")
+    if request.method == "POST":
+        entry = request.POST.get("q")
+        # get all the strings that contains the entry substring
+        entries = [x for x in list_entries() if entry.upper() in x.upper()]
+        return render(
+            request, "encyclopedia/search.html", {"q": entry, "entries": entries}
+        )
 
 
 def new(request):
@@ -35,10 +41,9 @@ def new(request):
 
 def edit(request, entry):
     content = get_entry(entry)
-    print(content)
     if request.method == "POST":
-        save_entry(entry, content)
-        return HttpResponseRedirect(reverse("wiki:index"))
+        save_entry(entry, request.POST.get("content"))
+        return HttpResponseRedirect(f"/wiki/{entry}")
     return render(
         request, "encyclopedia/edit.html", {"entry": entry, "content": content}
     )

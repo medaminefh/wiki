@@ -5,6 +5,12 @@ Search
 {% endblock %}
 
 {% block body %}
-<h1>Search</h1>
+<h1>You searched for {{q}}</h1>
+
+<ul>
+    {% for entry in entries %}
+    <li><a href="/wiki/{{entry}}">{{ entry }}</a></li>
+    {% endfor %}
+</ul>
 
 {% endblock %}
