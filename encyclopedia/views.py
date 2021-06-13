@@ -36,6 +36,13 @@ def search(request):
 
 
 def new(request):
+    if request.method == "POST":
+        entry = request.POST.get("title").upper()
+        if entry in list_entries():
+            return render(request, "encyclopedia/exist.html", {"entry": entry})
+        desc = request.POST.get("description")
+        save_entry(entry, desc)
+        return HttpResponseRedirect(f"/wiki/{entry}")
     return render(request, "encyclopedia/new.html")
 
 

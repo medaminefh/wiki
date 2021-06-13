@@ -5,6 +5,18 @@ New Entry
 {% endblock %}
 
 {% block body %}
-<h1>New Entry Here</h1>
+<h1>Create a New Entry</h1>
+<form action="{% url 'wiki:new' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input name="title" id='title' />
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
 {% endblock %}

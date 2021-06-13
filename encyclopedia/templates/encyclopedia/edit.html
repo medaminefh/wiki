@@ -8,12 +8,13 @@ Edit
 <h1>Edit {{entry}} Page</h1>
 <form action="/wiki/edit/{{entry}}" method="POST">
     {% csrf_token %}
-    <textarea name="content">
-{{content | safe }}
-    </textarea>
-    <button>Submit</button>
+    <div class="form-group">
+        <div class="form-group">
+            <label for="content">Description</label>
+            <textarea class="form-control" name="content" id="content" rows="10">{{content | safe }}</textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a class="btn btn-secondary" href="/wiki/{{entry}}">Cancel</a>
 </form>
-<a class="btn btn-secondary" href="/wiki/{{entry}}">Cancel</a>
-
-
 {% endblock %}
