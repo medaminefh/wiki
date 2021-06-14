@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.urls.base import reverse
 from django import forms
+import random
 
 # from django.urls import reverse
 from markdown import markdown
@@ -13,7 +14,8 @@ class EditEntry(forms.Form):
 
 
 def index(request):
-    return render(request, "encyclopedia/index.html", {"entries": list_entries()})
+    entries = list_entries()
+    return render(request, "encyclopedia/index.html", {"entries": entries})
 
 
 def content(request, entry):
@@ -56,5 +58,11 @@ def edit(request, entry):
     )
 
 
-def notFound(request):
+def rndom(request):
+    entries = list_entries()
+    random_entry = random.choice(entries)
+    return HttpResponseRedirect(f"/wiki/{random_entry}")
+
+
+def notFound(request, exception):
     return render(request, "encyclopedia/notFound.html")

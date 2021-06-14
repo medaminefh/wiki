@@ -10,6 +10,8 @@ Search
 <ul>
     {% for entry in entries %}
     <li><a href="/wiki/{{entry}}">{{ entry }}</a></li>
+    {% empty %}
+    <h2>No entry with that query</h2>
     {% endfor %}
 </ul>
 
