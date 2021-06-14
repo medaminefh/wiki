@@ -32,6 +32,8 @@ def search(request):
         entry = request.POST.get("q")
         # get all the strings that contains the entry substring
         entries = [x for x in list_entries() if entry.upper() in x.upper()]
+        if len(entries) == 1 and entry.lower() == entries[0].lower():
+            return HttpResponseRedirect(f"wiki/{entries[0]}")
         return render(
             request, "encyclopedia/search.html", {"q": entry, "entries": entries}
         )
@@ -39,12 +41,13 @@ def search(request):
 
 def new(request):
     if request.method == "POST":
-        entry = request.POST.get("title").upper()
-        if entry in list_entries():
-            return render(request, "encyclopedia/exist.html", {"entry": entry})
+        title = request.POST.get("title")
+        entry = [x for x in list_entries() if title.upper() == x.upper()]
+        if len(entry) == 1:
+            return render(request, "encyclopedia/exist.html", {"entry": entry[0]})
         desc = request.POST.get("description")
-        save_entry(entry, desc)
-        return HttpResponseRedirect(f"/wiki/{entry}")
+        save_entry(title, desc)
+        return HttpResponseRedirect(f"/wiki/{title}")
     return render(request, "encyclopedia/new.html")
 
 
