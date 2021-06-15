@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.urls.base import reverse
 from django import forms
 import random
 
@@ -20,8 +19,9 @@ def index(request):
 
 def content(request, entry):
     a = get_entry(entry)
+    # if there is no entry with that entry Name
     if a is None:
-        return "No Entry with That Name"
+        return HttpResponseRedirect(f"/notfound")
     return render(
         request, "encyclopedia/entry.html", {"content": markdown(a), "entry": entry}
     )
